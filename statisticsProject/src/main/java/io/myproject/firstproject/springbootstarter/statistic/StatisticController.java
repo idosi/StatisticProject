@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class StatisticController
 {	
 	@Autowired
-	private StatisticService statService;
+	private StatServiceInterface statService;
 	
 	@RequestMapping("/statistic")
 	public Statistic getStatistic()
@@ -23,10 +23,10 @@ public class StatisticController
 		return statService.getStatistic();
 	}
 	
-	@RequestMapping("/statistic/{id}")
-	public String getSpecificStatistic(@PathVariable String id)
+	@RequestMapping("/statistic/{specificStats}")
+	public String getSpecificStatistic(@PathVariable String specificStats)
 	{
-		return statService.getSpecificStatistic(id);
+		return statService.getSpecificStatistic(specificStats);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/addNumber")
@@ -34,19 +34,19 @@ public class StatisticController
 		statService.addNumber(number);
 	}
 	
-//	@RequestMapping(method=RequestMethod.POST, value="/addNumbers")
-//	public void addNumbers(@RequestBody List<String> numbers){
-//		statService.addNumbers(numbers);
-//	}
+	@RequestMapping(method=RequestMethod.POST, value="/addNumbers")
+	public void addNumbers(@RequestBody NumbersWrapper numbers){
+		statService.addNumbers(numbers);
+	}
 	
 	@RequestMapping("/numbers")
-	public List<Integer> getAllNumbers()
+	public List<Long> getAllNumbers()
 	{	
 		return statService.getAllNumbers();
 	}
 	
 	@RequestMapping("/count")
-	public String getNumberCount()
+	public int getNumberCount()
 	{	
 		return statService.getNumberCount();
 	}
