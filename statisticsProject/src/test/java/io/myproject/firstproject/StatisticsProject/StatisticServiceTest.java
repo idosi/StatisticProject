@@ -29,18 +29,47 @@ public class StatisticServiceTest  extends TestCase
 	@Test
     public void checkNumIsEqualTest()
     {
-		controller.getStatistic().getNumberList().clear();
 		controller.addNumber("2");
 		controller.addNumber("2");
         assertEquals(2, controller.getNumberCount());
+        controller.getStatistic().getNumberList().clear();
     }
 	
 	@Test
     public void checkNumIsNotEqualTest()
-    {
-		controller.getStatistic().getNumberList().clear();
+    {		
 		controller.addNumber("2");
 		controller.addNumber("3");
-		assertNotEquals(6, controller.getSpecificStatistic("sum"));
+		assertNotEquals(3, controller.getNumberCount());	
+		controller.getStatistic().getNumberList().clear();
+    }
+	
+	@Test
+    public void checkGetSumTest()
+    {		
+		controller.addNumber("2");
+		controller.addNumber("3");
+		assertEquals("Sum = 5.0", controller.getSpecificStatistic("sum"));	
+		controller.getStatistic().getNumberList().clear();
+    }
+	
+	@Test
+    public void checkGetAvgTest()
+    {		
+		controller.addNumber("2");
+		controller.addNumber("4");
+		controller.addNumber("6");
+		assertEquals("Average = 4.0", controller.getSpecificStatistic("average"));	
+		controller.getStatistic().getNumberList().clear();
+    }
+	
+	@Test
+    public void checkGetMedianTest()
+    {		
+		controller.addNumber("2");
+		controller.addNumber("3");
+		controller.addNumber("5");
+		assertEquals("Median = 3", controller.getSpecificStatistic("median"));	
+		controller.getStatistic().getNumberList().clear();
     }
 }
