@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface StatServiceInterface
 {
-	public Statistic getStatistic();
-	public String getSpecificStatistic(String specificStats);
-	public void addNumber(String number);
-	public List<Long> getAllNumbers();
-	public int getNumberCount();
-	public void addNumbers(NumbersWrapper numbers);
+	Statistic getStatistic();
+	String getSpecificStatistic(String specificStats);
+	void addNumber(String number);
+	List<Integer> getAllNumbers();
+	int getNumberCount();
+	void addNumbers(NumbersWrapper numbers);
 }

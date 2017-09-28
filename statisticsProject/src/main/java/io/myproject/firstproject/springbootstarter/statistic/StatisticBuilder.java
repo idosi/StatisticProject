@@ -4,27 +4,51 @@ import java.util.List;
 
 public class StatisticBuilder
 {
-	protected List<Long> numberList;
+	protected List<Integer> numberList;
 	protected Double average;
 	protected Double sum;
 	protected Long median;
 	protected Integer numberCount;
-
-	protected Long[] percentiles;
+	protected int[] percentiles;
 	
-	public StatisticBuilder(Double average, Double sum, Long median, Long[] percentiles, List<Long> numberList, Integer numberCount)
+	public StatisticBuilder(List<Integer> numberList)
 	{
 		super();
-		this.average = average;
-		this.sum = sum;
-		this.median = median;
-		this.percentiles = percentiles;
 		this.numberList = numberList;
-		this.numberCount = numberCount;
 	}
 	
-    public Statistic build() {
-    	Statistic stat =  new Statistic(this);
-        return stat;
+	public StatisticBuilder setAverage(Double average)
+	{
+		this.average = average;
+		return this;
+	}
+	
+	public StatisticBuilder setSum(Double sum)
+	{
+		this.sum = sum;
+		return this;
+	}
+	
+	public StatisticBuilder setMedian(Long median)
+	{
+		this.median = median;
+		return this;
+	}
+	
+	public StatisticBuilder setPercentiles(int[] percentiles)
+	{
+		this.percentiles = percentiles;
+		return this;
+	}
+	
+	public StatisticBuilder setNumberCount(Integer numberCount)
+	{
+		this.numberCount = numberCount;
+		return this;
+	}
+	
+    public Statistic build() 
+    {	
+    	return new Statistic(this);
     }
 }

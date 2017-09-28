@@ -40,7 +40,7 @@ public class StatisticController
 	}
 	
 	@RequestMapping("/numbers")
-	public List<Long> getAllNumbers()
+	public List<Integer> getAllNumbers()
 	{	
 		return statService.getAllNumbers();
 	}

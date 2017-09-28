@@ -11,20 +11,21 @@ import org.springframework.stereotype.Service;
 public class StatisticService implements StatServiceInterface
 {
 	private Statistic stat;
-	private List<Long> numberList = new ArrayList<>();
-	
+	private List<Integer> numberList = new ArrayList<>();
+
 	@Value("${base.module.percentileArray}")
 	private String[] percentileArray;
 
 	private Double getAvg()
 	{
 		double sum = getSum();
-		if (sum>0)
+		if(sum > 0)
 		{
-			Double avg = sum/numberList.size();
+			Double avg = sum / numberList.size();
 			return avg;
 		}
-		else{
+		else
+		{
 			return sum;
 		}
 	}
@@ -34,11 +35,14 @@ public class StatisticService implements StatServiceInterface
 		Long medianValue = null;
 		Long[] numbersArr = numberList.toArray(new Long[numberList.size()]);
 		Arrays.sort(numbersArr);
-		int median = numbersArr.length /2;
-		if (numbersArr.length % 2 == 1) {
-			medianValue = (long)numbersArr[median];
+		int median = numbersArr.length / 2;
+		if(numbersArr.length % 2 == 1)
+		{
+			medianValue = (long) numbersArr[median];
 			return medianValue;
-		} else {
+		}
+		else
+		{
 			medianValue = (numbersArr[median - 1] + numbersArr[median]) / 2;
 			return medianValue;
 		}
@@ -54,27 +58,30 @@ public class StatisticService implements StatServiceInterface
 		return sum;
 	}
 
-	private Long[] getPercentiles()
-	{		
-		Long[] numbersArr = numberList.toArray(new Long[numberList.size()]);
+	private int[] getPercentiles()
+	{
+		Integer[] numbersArr = numberList.toArray(new Integer[numberList.size()]);
 		Double[] percentiles = getDoubleArray(percentileArray);
-		Long[] percentilesResult = percentiles(numbersArr , percentiles);
-		return percentilesResult;	
+		int[] percentilesResult = percentiles(numbersArr, percentiles);
+		return percentilesResult;
 	}
 
 	private Double[] getDoubleArray(String[] percentileArray)
 	{
 		Double[] percentilesLongArr = new Double[percentileArray.length];
-		for (int i = 0; i < percentileArray.length; i++) {
+		for(int i = 0 ; i < percentileArray.length ; i++)
+		{
 			percentilesLongArr[i] = Double.parseDouble(percentileArray[i]);
 		}
 		return percentilesLongArr;
 	}
 
-	private static Long[] percentiles(Long[] latencies, Double... percentiles) {
+	private static int[] percentiles(Integer[] latencies, Double... percentiles)
+	{
 		Arrays.sort(latencies, 0, latencies.length);
-		Long[] values = new Long[percentiles.length];
-		for (int i = 0; i < percentiles.length; i++) {
+		int[] values = new int[percentiles.length];
+		for(int i = 0 ; i < percentiles.length ; i++)
+		{
 			int index = (int) (percentiles[i] * latencies.length);
 			values[i] = latencies[index];
 		}
@@ -83,45 +90,46 @@ public class StatisticService implements StatServiceInterface
 
 	public String getSpecificStatistic(String specificStats)
 	{
-		if (StatisticEnum.AVERAGE.toString().toLowerCase().equals(specificStats))
+		if(StatisticEnum.AVERAGE.toString().toLowerCase().equals(specificStats))
 		{
 			Double avg = getAvg();
-			return "Average =  " + avg;
+			return "Average = " + avg.toString();
 		}
-		if (StatisticEnum.SUM.toString().toLowerCase().equals(specificStats))
+		if(StatisticEnum.SUM.toString().toLowerCase().equals(specificStats))
 		{
 			Double sum = getSum();
-			return  "Sum = " + sum;
+			return "Sum = " + sum.toString();
 		}
-		if (StatisticEnum.MEDIAN.toString().toLowerCase().equals(specificStats))
+		if(StatisticEnum.MEDIAN.toString().toLowerCase().equals(specificStats))
 		{
 			Long median = getMedian();
-			return "Median = " + median;
+			return "Median = " + median.toString();
 		}
 
 		return "input value is not correct";
 	}
-	
+
 	public Statistic getStatistic()
 	{
-		if (numberList.isEmpty())
+		if(numberList.isEmpty())
 		{
 			return null;
 		}
 		Double sum = getSum();
 		Double avg = getAvg();
 		Long median = getMedian();
-		Long[] percentiles = getPercentiles();
-		stat = new StatisticBuilder(avg,sum,median,percentiles,numberList,numberList.size()).build();
+		int[] percentiles = getPercentiles();
+		stat = new StatisticBuilder(numberList).setSum(sum).setAverage(avg).setMedian(median).setPercentiles(percentiles)
+		        .setNumberCount(numberList.size()).build();
 		return stat;
 	}
 
 	public void addNumber(String number)
 	{
-		numberList.add(Long.valueOf(number));
+		numberList.add(Integer.valueOf(number));
 	}
 
-	public List<Long> getAllNumbers()
+	public List<Integer> getAllNumbers()
 	{
 		return numberList;
 	}
@@ -134,7 +142,7 @@ public class StatisticService implements StatServiceInterface
 	public void addNumbers(NumbersWrapper numbers)
 	{
 		List<Integer> numberslist = numbers.getNumbers();
-		for(long num : numberslist)
+		for(int num : numberslist)
 		{
 			numberList.add(num);
 		}

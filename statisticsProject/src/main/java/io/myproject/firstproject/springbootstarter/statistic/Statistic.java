@@ -4,13 +4,13 @@ import java.util.List;
 
 public class Statistic
 {
-	private final List<Long> numberList;
+	private final List<Integer> numberList;
 	private final Double average;
 	private final Double sum;
 	private final Long median;
 	private final Integer numberCount;
 
-	private final Long[] percentiles;
+	private final int[] percentiles;
 
 	public Statistic(StatisticBuilder sb)
 	{
@@ -37,7 +37,7 @@ public class Statistic
 		return median;
 	}
 
-	public List<Long> getNumberList()
+	public List<Integer> getNumberList()
 	{
 		return numberList;
 	}
@@ -47,7 +47,7 @@ public class Statistic
 		return numberCount;
 	}
 
-	public Long[] getPercentiles()
+	public int[] getPercentiles()
 	{
 		return percentiles;
 	}
