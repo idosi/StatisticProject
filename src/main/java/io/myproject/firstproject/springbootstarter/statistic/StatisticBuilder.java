@@ -5,7 +5,7 @@ import java.util.List;
 public class StatisticBuilder {
   protected List<Long> numberList;
   protected Double average;
-  protected Double sum;
+  protected long sum;
   protected Long median;
   protected Integer numberCount;
   protected long[] percentiles;
@@ -20,7 +20,7 @@ public class StatisticBuilder {
     return this;
   }
 
-  public StatisticBuilder setSum(Double sum) {
+  public StatisticBuilder setSum(long sum) {
     this.sum = sum;
     return this;
   }

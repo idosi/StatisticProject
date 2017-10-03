@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StatisticController {
   @Autowired
-  private StatServiceInterface statService;
+  private StatisticsService statService;
 
   @RequestMapping("/statistic")
   public Statistic getStatistic() {

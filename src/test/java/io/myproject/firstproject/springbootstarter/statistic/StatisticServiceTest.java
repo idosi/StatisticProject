@@ -4,7 +4,6 @@ package io.myproject.firstproject.springbootstarter.statistic;
 import junit.framework.TestCase;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +38,12 @@ public class StatisticServiceTest extends TestCase {
   public void checkNumIsEqualTest() {
     addNumbers();
     assertEquals(numbers.size(), controller.getNumberCount());
-
   }
 
   @Test
   public void checkGetSumTest() {
     addNumbers();
-    assertEquals("Sum = 6.0", controller.getSpecificStatistic("sum"));
+    assertEquals("Sum = 6", controller.getSpecificStatistic("sum"));
   }
 
   @Test

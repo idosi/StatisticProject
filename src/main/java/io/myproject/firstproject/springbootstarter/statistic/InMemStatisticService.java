@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StatisticService implements StatServiceInterface {
+public class InMemStatisticService implements StatisticsService {
   private Statistic stat;
   private List<Long> numberList = new ArrayList<>();
 
@@ -16,13 +16,7 @@ public class StatisticService implements StatServiceInterface {
   private String[] percentileArray;
 
   private Double getAvg() {
-    double sum = getSum();
-    if (sum > 0) {
-      Double avg = sum / numberList.size();
-      return avg;
-    } else {
-      return sum;
-    }
+    return (double)getSum() / numberList.size();
   }
 
   private Long getMedian() {
@@ -39,12 +33,8 @@ public class StatisticService implements StatServiceInterface {
     }
   }
 
-  private Double getSum() {
-    double sum = 0;
-    for (long num : numberList) {
-      sum += num;
-    }
-    return sum;
+  private long getSum() {
+    return numberList.stream().mapToLong(l -> l.longValue()).sum();
   }
 
   private long[] getPercentiles() {
@@ -66,7 +56,7 @@ public class StatisticService implements StatServiceInterface {
     Arrays.sort(latencies, 0, latencies.length);
     long[] values = new long[percentiles.length];
     for (int i = 0; i < percentiles.length; i++) {
-      int index = (int) ((percentiles[i]/100) * latencies.length);
+      int index = (int) ((percentiles[i] / 100) * latencies.length);
       values[i] = latencies[index];
     }
     return values;
@@ -75,16 +65,13 @@ public class StatisticService implements StatServiceInterface {
   @Override
   public String getSpecificStatistic(String specificStats) {
     if (StatisticType.AVERAGE.toString().toLowerCase().equals(specificStats)) {
-      Double avg = getAvg();
-      return "Average = " + avg.toString();
+      return "Average = " + getAvg();
     }
     if (StatisticType.SUM.toString().toLowerCase().equals(specificStats)) {
-      Double sum = getSum();
-      return "Sum = " + sum.toString();
+      return "Sum = " + getSum();
     }
     if (StatisticType.MEDIAN.toString().toLowerCase().equals(specificStats)) {
-      Long median = getMedian();
-      return "Median = " + median.toString();
+      return "Median = " + getMedian();
     }
 
     return "input value is not correct";
@@ -95,7 +82,7 @@ public class StatisticService implements StatServiceInterface {
     if (numberList.isEmpty()) {
       return null;
     }
-    Double sum = getSum();
+    long sum = getSum();
     Double avg = getAvg();
     Long median = getMedian();
     long[] percentiles = getPercentiles();

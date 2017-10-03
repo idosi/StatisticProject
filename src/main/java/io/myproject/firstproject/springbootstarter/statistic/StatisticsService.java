@@ -2,7 +2,7 @@ package io.myproject.firstproject.springbootstarter.statistic;
 
 import java.util.List;
 
-public interface StatServiceInterface {
+public interface StatisticsService {
   Statistic getStatistic();
 
   String getSpecificStatistic(String specificStats);

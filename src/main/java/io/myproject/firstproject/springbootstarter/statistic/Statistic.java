@@ -5,7 +5,7 @@ import java.util.List;
 public class Statistic {
   private final List<Long> numberList;
   private final Double average;
-  private final Double sum;
+  private final long sum;
   private final Long median;
   private final Integer numberCount;
 
@@ -25,7 +25,7 @@ public class Statistic {
     return average;
   }
 
-  public Double getSum() {
+  public long getSum() {
     return sum;
   }
 
