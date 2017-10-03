@@ -66,7 +66,7 @@ public class StatisticService implements StatServiceInterface {
     Arrays.sort(latencies, 0, latencies.length);
     int[] values = new int[percentiles.length];
     for (int i = 0; i < percentiles.length; i++) {
-      int index = (int) (percentiles[i] * latencies.length);
+      int index = (int) ((percentiles[i]/100) * latencies.length);
       values[i] = latencies[index];
     }
     return values;
