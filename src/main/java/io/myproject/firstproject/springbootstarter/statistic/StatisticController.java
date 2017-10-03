@@ -12,42 +12,37 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-public class StatisticController
-{	
-	@Autowired
-	private StatServiceInterface statService;
-	
-	@RequestMapping("/statistic")
-	public Statistic getStatistic()
-	{
-		return statService.getStatistic();
-	}
-	
-	@RequestMapping("/statistic/{specificStats}")
-	public String getSpecificStatistic(@PathVariable String specificStats)
-	{
-		return statService.getSpecificStatistic(specificStats);
-	}
-	
-	@RequestMapping(method=RequestMethod.POST, value="/addNumber")
-	public void addNumber(@RequestBody String number){
-		statService.addNumber(number);
-	}
-	
-	@RequestMapping(method=RequestMethod.POST, value="/addNumbers")
-	public void addNumbers(@RequestBody NumbersWrapper numbers){
-		statService.addNumbers(numbers);
-	}
-	
-	@RequestMapping("/numbers")
-	public List<Integer> getAllNumbers()
-	{	
-		return statService.getAllNumbers();
-	}
-	
-	@RequestMapping("/count")
-	public int getNumberCount()
-	{	
-		return statService.getNumberCount();
-	}
+public class StatisticController {
+  @Autowired
+  private StatServiceInterface statService;
+
+  @RequestMapping("/statistic")
+  public Statistic getStatistic() {
+    return statService.getStatistic();
+  }
+
+  @RequestMapping("/statistic/{specificStats}")
+  public String getSpecificStatistic(@PathVariable String specificStats) {
+    return statService.getSpecificStatistic(specificStats);
+  }
+
+  @RequestMapping(method = RequestMethod.POST, value = "/addNumber")
+  public void addNumber(@RequestBody String number) {
+    statService.addNumber(number);
+  }
+
+  @RequestMapping(method = RequestMethod.POST, value = "/addNumbers")
+  public void addNumbers(@RequestBody NumbersWrapper numbers) {
+    statService.addNumbers(numbers);
+  }
+
+  @RequestMapping("/numbers")
+  public List<Integer> getAllNumbers() {
+    return statService.getAllNumbers();
+  }
+
+  @RequestMapping("/count")
+  public int getNumberCount() {
+    return statService.getNumberCount();
+  }
 }
