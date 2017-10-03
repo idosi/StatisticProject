@@ -1,0 +1,14 @@
+target/
+**/target/
+.classpath
+.project
+.settings
+checkpoint
+fabfile.pyc
+logs
+.idea
+*.iml
+*.log
+.history
+.DS_Store
+dependency-reduced-pom.xml
