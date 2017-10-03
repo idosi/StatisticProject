@@ -10,13 +10,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class InMemStatisticService implements StatisticsService {
   private Statistic stat;
+  private Statistic cachedStat;
   private List<Long> numberList = new ArrayList<>();
 
   @Value("${base.module.percentileArray}")
   private String[] percentileArray;
 
   private Double getAvg() {
-    return (double)getSum() / numberList.size();
+    return (double) getSum() / numberList.size();
   }
 
   private Long getMedian() {
@@ -79,6 +80,13 @@ public class InMemStatisticService implements StatisticsService {
 
   @Override
   public Statistic getStatistic() {
+    if (cachedStat == null) {
+      cachedStat = calculateStat();
+    }
+    return cachedStat;
+  }
+
+  private Statistic calculateStat() {
     if (numberList.isEmpty()) {
       return null;
     }
@@ -88,12 +96,13 @@ public class InMemStatisticService implements StatisticsService {
     long[] percentiles = getPercentiles();
     stat = new StatisticBuilder(numberList).setSum(sum).setAverage(avg).setMedian(median)
         .setPercentiles(percentiles).setNumberCount(numberList.size()).build();
+
     return stat;
   }
 
   @Override
   public void addNumber(Long number) {
-    numberList.add(number);
+    addNumbers(new NumbersWrapper(Arrays.asList(number)));
   }
 
   @Override
@@ -108,9 +117,15 @@ public class InMemStatisticService implements StatisticsService {
 
   @Override
   public void addNumbers(NumbersWrapper numbers) {
-    List<Long> numberslist = numbers.getNumbers();
-    for (long num : numberslist) {
+    cachedStat = null;
+    for (long num : numbers.getNumbers()) {
       numberList.add(num);
     }
+  }
+
+  @Override
+  public void clear() {
+    cachedStat = null;
+    numberList.clear();
   }
 }

@@ -14,4 +14,6 @@ public interface StatisticsService {
   int getNumberCount();
 
   void addNumbers(NumbersWrapper numbers);
+
+  void clear();
 }

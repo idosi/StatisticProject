@@ -5,11 +5,11 @@ import java.util.List;
 public class NumbersWrapper {
   private List<Long> numbers;
 
-  public List<Long> getNumbers() {
-    return numbers;
+  public NumbersWrapper(List<Long> numbers) {
+    this.numbers = numbers;
   }
 
-  public void setNumbers(List<Long> numbers) {
-    this.numbers = numbers;
+  public List<Long> getNumbers() {
+    return numbers;
   }
 }

@@ -45,4 +45,9 @@ public class StatisticController {
   public int getNumberCount() {
     return statService.getNumberCount();
   }
+
+  @RequestMapping("/clear")
+  public void clear() {
+    statService.clear();
+  }
 }

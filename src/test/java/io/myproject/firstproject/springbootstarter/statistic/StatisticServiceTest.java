@@ -59,13 +59,10 @@ public class StatisticServiceTest extends TestCase {
   }
 
   private void addNumbers() {
-    for (long l : numbers) {
-      controller.addNumber(l);
-    }
+    controller.addNumbers(new NumbersWrapper(numbers));
   }
 
   private void clearStats() {
-    if (controller != null && controller.getStatistic() != null)
-      controller.getStatistic().clear();
+    controller.clear();
   }
 }
