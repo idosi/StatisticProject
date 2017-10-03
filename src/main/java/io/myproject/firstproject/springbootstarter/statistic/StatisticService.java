@@ -73,15 +73,15 @@ public class StatisticService implements StatServiceInterface {
   }
 
   public String getSpecificStatistic(String specificStats) {
-    if (StatisticEnum.AVERAGE.toString().toLowerCase().equals(specificStats)) {
+    if (StatisticType.AVERAGE.toString().toLowerCase().equals(specificStats)) {
       Double avg = getAvg();
       return "Average = " + avg.toString();
     }
-    if (StatisticEnum.SUM.toString().toLowerCase().equals(specificStats)) {
+    if (StatisticType.SUM.toString().toLowerCase().equals(specificStats)) {
       Double sum = getSum();
       return "Sum = " + sum.toString();
     }
-    if (StatisticEnum.MEDIAN.toString().toLowerCase().equals(specificStats)) {
+    if (StatisticType.MEDIAN.toString().toLowerCase().equals(specificStats)) {
       Long median = getMedian();
       return "Median = " + median.toString();
     }

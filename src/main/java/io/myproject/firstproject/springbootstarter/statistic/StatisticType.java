@@ -1,5 +1,5 @@
 package io.myproject.firstproject.springbootstarter.statistic;
 
-public enum StatisticEnum {
+public enum StatisticType {
   AVERAGE, SUM, MEDIAN;
 }
