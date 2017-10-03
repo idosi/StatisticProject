@@ -3,14 +3,14 @@ package io.myproject.firstproject.springbootstarter.statistic;
 import java.util.List;
 
 public class StatisticBuilder {
-  protected List<Integer> numberList;
+  protected List<Long> numberList;
   protected Double average;
   protected Double sum;
   protected Long median;
   protected Integer numberCount;
-  protected int[] percentiles;
+  protected long[] percentiles;
 
-  public StatisticBuilder(List<Integer> numberList) {
+  public StatisticBuilder(List<Long> numberList) {
     super();
     this.numberList = numberList;
   }
@@ -30,7 +30,7 @@ public class StatisticBuilder {
     return this;
   }
 
-  public StatisticBuilder setPercentiles(int[] percentiles) {
+  public StatisticBuilder setPercentiles(long[] percentiles) {
     this.percentiles = percentiles;
     return this;
   }

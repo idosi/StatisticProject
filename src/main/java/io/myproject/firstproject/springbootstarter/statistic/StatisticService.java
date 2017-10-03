@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StatisticService implements StatServiceInterface {
   private Statistic stat;
-  private List<Integer> numberList = new ArrayList<>();
+  private List<Long> numberList = new ArrayList<>();
 
   @Value("${base.module.percentileArray}")
   private String[] percentileArray;
@@ -27,14 +27,14 @@ public class StatisticService implements StatServiceInterface {
 
   private Long getMedian() {
     Long medianValue = null;
-    Integer[] numbersArr = numberList.toArray(new Integer[numberList.size()]);
+    Long[] numbersArr = numberList.toArray(new Long[numberList.size()]);
     Arrays.sort(numbersArr);
     int median = numbersArr.length / 2;
     if (numbersArr.length % 2 == 1) {
-      medianValue = (long) numbersArr[median];
+      medianValue = numbersArr[median];
       return medianValue;
     } else {
-      medianValue = (long) (numbersArr[median - 1] + numbersArr[median]) / 2;
+      medianValue = (numbersArr[median - 1] + numbersArr[median]) / 2;
       return medianValue;
     }
   }
@@ -47,10 +47,10 @@ public class StatisticService implements StatServiceInterface {
     return sum;
   }
 
-  private int[] getPercentiles() {
-    Integer[] numbersArr = numberList.toArray(new Integer[numberList.size()]);
+  private long[] getPercentiles() {
+    Long[] numbersArr = numberList.toArray(new Long[numberList.size()]);
     Double[] percentiles = getDoubleArray(percentileArray);
-    int[] percentilesResult = percentiles(numbersArr, percentiles);
+    long[] percentilesResult = percentiles(numbersArr, percentiles);
     return percentilesResult;
   }
 
@@ -62,9 +62,9 @@ public class StatisticService implements StatServiceInterface {
     return percentilesLongArr;
   }
 
-  private static int[] percentiles(Integer[] latencies, Double... percentiles) {
+  private static long[] percentiles(Long[] latencies, Double... percentiles) {
     Arrays.sort(latencies, 0, latencies.length);
-    int[] values = new int[percentiles.length];
+    long[] values = new long[percentiles.length];
     for (int i = 0; i < percentiles.length; i++) {
       int index = (int) ((percentiles[i]/100) * latencies.length);
       values[i] = latencies[index];
@@ -72,6 +72,7 @@ public class StatisticService implements StatServiceInterface {
     return values;
   }
 
+  @Override
   public String getSpecificStatistic(String specificStats) {
     if (StatisticType.AVERAGE.toString().toLowerCase().equals(specificStats)) {
       Double avg = getAvg();
@@ -89,6 +90,7 @@ public class StatisticService implements StatServiceInterface {
     return "input value is not correct";
   }
 
+  @Override
   public Statistic getStatistic() {
     if (numberList.isEmpty()) {
       return null;
@@ -96,27 +98,31 @@ public class StatisticService implements StatServiceInterface {
     Double sum = getSum();
     Double avg = getAvg();
     Long median = getMedian();
-    int[] percentiles = getPercentiles();
+    long[] percentiles = getPercentiles();
     stat = new StatisticBuilder(numberList).setSum(sum).setAverage(avg).setMedian(median)
         .setPercentiles(percentiles).setNumberCount(numberList.size()).build();
     return stat;
   }
 
-  public void addNumber(String number) {
-    numberList.add(Integer.valueOf(number));
+  @Override
+  public void addNumber(Long number) {
+    numberList.add(number);
   }
 
-  public List<Integer> getAllNumbers() {
+  @Override
+  public List<Long> getAllNumbers() {
     return numberList;
   }
 
+  @Override
   public int getNumberCount() {
     return numberList.size();
   }
 
+  @Override
   public void addNumbers(NumbersWrapper numbers) {
-    List<Integer> numberslist = numbers.getNumbers();
-    for (int num : numberslist) {
+    List<Long> numberslist = numbers.getNumbers();
+    for (long num : numberslist) {
       numberList.add(num);
     }
   }

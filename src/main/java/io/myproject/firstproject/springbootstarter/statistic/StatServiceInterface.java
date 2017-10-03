@@ -7,9 +7,9 @@ public interface StatServiceInterface {
 
   String getSpecificStatistic(String specificStats);
 
-  void addNumber(String number);
+  void addNumber(Long number);
 
-  List<Integer> getAllNumbers();
+  List<Long> getAllNumbers();
 
   int getNumberCount();
 

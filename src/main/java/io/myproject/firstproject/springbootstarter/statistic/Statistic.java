@@ -3,13 +3,13 @@ package io.myproject.firstproject.springbootstarter.statistic;
 import java.util.List;
 
 public class Statistic {
-  private final List<Integer> numberList;
+  private final List<Long> numberList;
   private final Double average;
   private final Double sum;
   private final Long median;
   private final Integer numberCount;
 
-  private final int[] percentiles;
+  private final long[] percentiles;
 
   public Statistic(StatisticBuilder sb) {
     super();
@@ -33,7 +33,7 @@ public class Statistic {
     return median;
   }
 
-  public List<Integer> getNumberList() {
+  public List<Long> getNumberList() {
     return numberList;
   }
 
@@ -41,7 +41,13 @@ public class Statistic {
     return numberCount;
   }
 
-  public int[] getPercentiles() {
+  public long[] getPercentiles() {
     return percentiles;
+  }
+
+  public void clear() {
+    if(numberList!=null){
+      numberList.clear();
+    }
   }
 }

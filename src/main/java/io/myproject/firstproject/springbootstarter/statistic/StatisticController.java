@@ -27,7 +27,7 @@ public class StatisticController {
   }
 
   @RequestMapping(method = RequestMethod.POST, value = "/addNumber")
-  public void addNumber(@RequestBody String number) {
+  public void addNumber(@RequestBody Long number) {
     statService.addNumber(number);
   }
 
@@ -37,7 +37,7 @@ public class StatisticController {
   }
 
   @RequestMapping("/numbers")
-  public List<Integer> getAllNumbers() {
+  public List<Long> getAllNumbers() {
     return statService.getAllNumbers();
   }
 
