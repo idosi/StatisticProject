@@ -7,7 +7,6 @@ public class StatisticBuilder {
   protected Double average;
   protected long sum;
   protected Long median;
-  protected Integer numberCount;
   protected long[] percentiles;
 
   public StatisticBuilder(List<Long> numberList) {
@@ -32,11 +31,6 @@ public class StatisticBuilder {
 
   public StatisticBuilder setPercentiles(long[] percentiles) {
     this.percentiles = percentiles;
-    return this;
-  }
-
-  public StatisticBuilder setNumberCount(Integer numberCount) {
-    this.numberCount = numberCount;
     return this;
   }
 

@@ -7,7 +7,6 @@ public class Statistic {
   private final Double average;
   private final long sum;
   private final Long median;
-  private final Integer numberCount;
 
   private final long[] percentiles;
 
@@ -18,7 +17,6 @@ public class Statistic {
     this.median = sb.median;
     this.percentiles = sb.percentiles;
     this.numberList = sb.numberList;
-    this.numberCount = sb.numberCount;
   }
 
   public Double getAverage() {
@@ -38,7 +36,7 @@ public class Statistic {
   }
 
   public Integer getNumberCount() {
-    return numberCount;
+    return numberList.size();
   }
 
   public long[] getPercentiles() {

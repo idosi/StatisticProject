@@ -94,10 +94,13 @@ public class InMemStatisticService implements StatisticsService {
     Double avg = getAvg();
     Long median = getMedian();
     long[] percentiles = getPercentiles();
-    stat = new StatisticBuilder(numberList).setSum(sum).setAverage(avg).setMedian(median)
-        .setPercentiles(percentiles).setNumberCount(numberList.size()).build();
 
-    return stat;
+    return new StatisticBuilder(numberList)
+        .setSum(sum)
+        .setAverage(avg)
+        .setMedian(median)
+        .setPercentiles(percentiles)
+        .build();
   }
 
   @Override
